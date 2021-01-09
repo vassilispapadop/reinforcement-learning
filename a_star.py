@@ -14,7 +14,7 @@ class Node():
         return self.position == other.position
 
 
-def astar(maze, start, end):
+def astar(maze, start, end, heuristic):
     """Returns a list of tuples as a path from the given start to the given end in the given maze"""
 
     # Create start and end node
@@ -57,9 +57,9 @@ def astar(maze, start, end):
         # Generate children
         children = []
         # for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]: # Adjacent squares
-        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]: # Adjacent squares
+        # Adjacent squares, diagonal move is not allowed
+        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]: 
     
-
             # Get node position
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
 
@@ -89,6 +89,7 @@ def astar(maze, start, end):
             child.g = current_node.g + 1
             # Manhattan distance
             child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+            child.h = heuristic[child.position[0]][child.position[1]]
             child.f = child.g + child.h
 
             # Child is already in the open list
@@ -116,10 +117,14 @@ def main():
             [0,1,0,0],
             [0,0,0,0]]
 
+    heuristic = [[0.705, 0.655, 0.611, 0.388],
+                [0.762, -100, 0.66, -1],
+                [0.812, 0.868, 0.918, 1]]
+
     start = (0, 0)
     end = (2, 3)
 
-    path = astar(maze, start, end)
+    path = astar(maze, start, end, heuristic)
     print(path)
 
 
