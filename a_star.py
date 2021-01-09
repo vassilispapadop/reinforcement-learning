@@ -88,7 +88,7 @@ def astar(maze, start, end, heuristic):
             # Create the f, g, and h values
             child.g = current_node.g + 1
             # Manhattan distance
-            child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+            # child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
             child.h = heuristic[child.position[0]][child.position[1]]
             child.f = child.g + child.h
 
@@ -102,17 +102,7 @@ def astar(maze, start, end, heuristic):
 
 
 def main():
-
-    # maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    #         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    # 1-indicates wall
     maze = [[0,0,0,0],
             [0,1,0,0],
             [0,0,0,0]]
@@ -120,6 +110,10 @@ def main():
     heuristic = [[0.705, 0.655, 0.611, 0.388],
                 [0.762, -100, 0.66, -1],
                 [0.812, 0.868, 0.918, 1]]
+
+    # heuristic = [[0.812, 0.868, 0.918, 1],
+    #             [0.762, -100, 0.66, -1],
+    #             [0.705, 0.655, 0.611, 0.388]]
 
     start = (0, 0)
     end = (2, 3)
