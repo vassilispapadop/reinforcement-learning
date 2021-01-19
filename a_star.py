@@ -86,7 +86,7 @@ def astar(maze, start, end, heuristic):
                     continue
 
             # Create the f, g, and h values
-            child.g = current_node.g + 1
+            child.g = current_node.g + 0.1
             # Manhattan distance
             # child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
             child.h = heuristic[child.position[0]][child.position[1]]
@@ -115,8 +115,8 @@ def main():
     #             [0.762, -100, 0.66, -1],
     #             [0.705, 0.655, 0.611, 0.388]]
 
-    start = (0, 0)
-    end = (2, 3)
+    start = (2, 0)
+    end = (0, 3)
 
     path = astar(maze, start, end, heuristic)
     print(path)
