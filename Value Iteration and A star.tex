@@ -1,0 +1,68 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+
+\title{Value Iteration and A*}
+\author{Vasileios Papadopoulos}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\begin{document}
+	\maketitle
+	\section{Environment}
+	
+	In a stochastic environment, for each action an agent performs there is a probability P(a) = 0.8 to succeed(to as planned) and 1-P(a) = 0.2 to move to different direction. For example: if the agent wants to move UP, there is a 0.8 probability to actually move UP and 0.2 probability to move either LEFT or RIGHT. If the agent wants to move RIGHT it will succeed with 0.8 probability and with 0.2 it will move LEFT or it will stay and the same state if it hits the wall. Figure below shows grid world and stochasticity.
+	In case there is a wall in the direction that the agents wishes to move, then it stays put.
+	The agent is in constant feedback loop with the environment meaning it takes an action $\alpha$ in state s and lands in a stochastic manner to state s’ and gets a reward r.
+	
+	\section{Markov Decision Process (MDP)}
+	
+	In Markov decision process problems the goal is to find an optimal policy $\pi$* that gives  the best action for each state. Optimal policy $\pi$* maximizes the expected sum of discounted(or not) rewards.
+	
+	An MDP is defined by the following components:
+	\begin{enumerate}
+		\item Set of possible states: $S = \{ s_{0}, s_{1}, ..., s_{n} \}$
+
+		\item Initial state: $S_{0}$
+
+		\item Set of possible actions: $A = \{ a_{1}, a{2}, ..., a_{m} \}$
+
+		\item Transition model: $T(s, a, s')$
+
+		\item Reward function: $R(s)$
+	\end{enumerate}
+	 
+	
+	\section{Value Iteration}
+	Value iteration or Bellman update is a recursive dynamic programming algorithm. It is a method of computing the best values for each possible state an agent can be and eventually extracting the optimal policy $\pi$* for an MDP problem. The agent takes an action $\alpha$ from state s and it lands in state s’ with a probability as this given by transition model . 
+	
+	\begin{equation}
+		V(s) \leftarrow \max_{a}{ \sum_{s'}T(s,a,s') [R(s,a,s') + V(s')]}
+	\end{equation}
+	
+	Intuitively, the value of V(s) is the best action that maximizes the expected reward. Consider the grid world we defined before. In order to compute the value state of cell(3,3) we need to calculate all the possible future rewards for every possible action $A = \{ a_{1}, a{2}, ..., a_{m} \}$, with discount factor $\gamma = 0.9$.
+	
+	
+	\begin{itemize}
+		\item Agent tries to go right: 
+	\end{itemize}
+
+	$V(\big \langle 3,3 \big \rangle)_{right} = \sum_{s'} T(\big \langle 3,3 \big \rangle, right, s') [R(\big \langle 3,3 \big \rangle), \gamma V(s')]$
+	\newline
+	$V(\big \langle 3,3 \big \rangle)_{right} = 0.9[0.8 * 1 + 0.1 * 0 + 0.1 * 0]$
+	\newline
+	$V(\big \langle 3,3 \big \rangle)_{right} = 0.72$
+		
+
+	
+	
+	\subsection{Pseudo code}
+	\subsection{Discount factor}
+	\section{A* Algorithm}
+	A* is a graph traversal and path search algorithm. It differs from Dijkstra algorithm as it uses best first search taking into account the current cost g and heuristic function h. It gives priority to nodes that are supposed to be better than others according to the value of function f(s) = g(s) + h(s) where h(s) is a heuristic function. For h(s) = 0, A* is similar to Dijkstra.
+	\subsection{Pseudo code}
+\end{document}
