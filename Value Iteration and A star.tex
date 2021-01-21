@@ -26,13 +26,9 @@
 	An MDP is defined by the following components:
 	\begin{enumerate}
 		\item Set of possible states: $S = \{ s_{0}, s_{1}, ..., s_{n} \}$
-
 		\item Initial state: $S_{0}$
-
 		\item Set of possible actions: $A = \{ a_{1}, a{2}, ..., a_{m} \}$
-
 		\item Transition model: $T(s, a, s')$
-
 		\item Reward function: $R(s)$
 	\end{enumerate}
 	 
@@ -47,19 +43,63 @@
 	Intuitively, the value of V(s) is the best action that maximizes the expected reward. Consider the grid world we defined before. In order to compute the value state of cell(3,3) we need to calculate all the possible future rewards for every possible action $A = \{ a_{1}, a{2}, ..., a_{m} \}$, with discount factor $\gamma = 0.9$.
 	
 	
-	\begin{itemize}
+	\begin{enumerate}
 		\item Agent tries to go right: 
-	\end{itemize}
-
-	$V(\big \langle 3,3 \big \rangle)_{right} = \sum_{s'} T(\big \langle 3,3 \big \rangle, right, s') [R(\big \langle 3,3 \big \rangle), \gamma V(s')]$
-	\newline
-	$V(\big \langle 3,3 \big \rangle)_{right} = 0.9[0.8 * 1 + 0.1 * 0 + 0.1 * 0]$
-	\newline
-	$V(\big \langle 3,3 \big \rangle)_{right} = 0.72$
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{right} = \sum_{s'} T(\big \langle 3,3 \big \rangle, right, s') [R(\big \langle 3,3 \big \rangle), \gamma V(s')]$
+		\end{itemize}
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{right} = 0.9[0.8 * 1 + 0.1 * 0 + 0.1 * 0]$
+		\end{itemize}
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{right} = 0.72$
+		\end{itemize}
 		
+		\item Agent tries to go left: 
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{left} = \sum_{s'} T(\big \langle 3,3 \big \rangle, left, s') [R(\big \langle 3,3 \big \rangle), \gamma V(s')]$
+		\end{itemize}
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{left} = 0.9[0.8 * 0 + 0.1 * 0 + 0.1 * 0]$
+		\end{itemize}
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{left} = 0$
+		\end{itemize}
+	
+		\item Agent tries to go down: 
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{down} = \sum_{s'} T(\big \langle 3,3 \big \rangle, down, s') [R(\big \langle 3,3 \big \rangle), \gamma V(s')]$
+		\end{itemize}
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{down} = 0.9[0.8 * 0 + 0.1 * 0 + 0.1 * 1]$
+		\end{itemize}
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{down} = 0.09$
+		\end{itemize}
+	
+		\item Agent tries to go up: 
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{up} = \sum_{s'} T(\big \langle 3,3 \big \rangle, up, s') [R(\big \langle 3,3 \big \rangle), \gamma V(s')]
+			$
+		\end{itemize}
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{up} = 0.9[0.8 * 0 + 0 * 0 + 0.1 * 1]$
+		\end{itemize}
+		\begin{itemize}
+			\item $V(\big \langle 3,3 \big \rangle)_{up} = 0.09$
+		\end{itemize}
+	\end{enumerate}
 
-	
-	
+	Then we take the action that maximizes the value state. 
+		
+	\begin{itemize}
+		\item $V(\big \langle 3,3 \big \rangle) = \max_{a} [V(\big \langle 3,3 \big 
+		\rangle)_{right},V(\big \langle 3,3 \big \rangle)_{left}, V(\big \langle 3,3 \big \rangle)_{down}, V(\big \langle 3,3 \big \rangle)_{up}]$
+	\end{itemize}
+		\begin{itemize}
+		\item $V(\big \langle 3,3 \big \rangle) = 0.72$
+	\end{itemize}
+	The above process is repeated for all states. After having calculated all values we repeat again until convergence which is guaranteed by Value iteration algorithm
 	\subsection{Pseudo code}
 	\subsection{Discount factor}
 	\section{A* Algorithm}
