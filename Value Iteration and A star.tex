@@ -10,9 +10,16 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{amsmath}
 
 \begin{document}
 	\maketitle
+	
+	\textbf{Abstract}
+	Write about mdp, value iteration algorithm, optimal policy impact of discount factor and A8 algorithm
+	
+	
+	
 	\section{Environment}
 	
 	In a stochastic environment, for each action an agent performs there is a probability P(a) = 0.8 to succeed(to as planned) and 1-P(a) = 0.2 to move to different direction. For example: if the agent wants to move UP, there is a 0.8 probability to actually move UP and 0.2 probability to move either LEFT or RIGHT. If the agent wants to move RIGHT it will succeed with 0.8 probability and with 0.2 it will move LEFT or it will stay and the same state if it hits the wall. Figure below shows grid world and stochasticity.
@@ -31,7 +38,8 @@
 		\item Transition model: $T(s, a, s')$
 		\item Reward function: $R(s)$
 	\end{enumerate}
-	 
+
+	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. In real world applications such a model is unknown and the goal is to approximate with techniques which are out of the scope of this work.
 	
 	\section{Value Iteration}
 	Value iteration or Bellman update is a recursive dynamic programming algorithm. It is a method of computing the best values for each possible state an agent can be and eventually extracting the optimal policy $\pi$* for an MDP problem. The agent takes an action $\alpha$ from state s and it lands in state s’ with a probability as this given by transition model . 
@@ -101,8 +109,90 @@
 	\end{itemize}
 	The above process is repeated for all states. After having calculated all values we repeat again until convergence which is guaranteed by Value iteration algorithm
 	\subsection{Pseudo code}
+	Below we present the pseudo code algorigthm of Value Iteration.
+	\newline
+	Initialize array V with zeros ( V(s) = 0 )
+	\newline
+	Repeat:
+	\newline
+	$\delta \leftarrow 0$
+	\newline
+	$\text{For each s} \in S:$
+	\newline
+	$u \leftarrow V(s)$
+	\newline
+	$V(s) \leftarrow \max{ ( R(s,a) + \gamma \sum_{s'}T(s,a,s')V(s') )}$
+	\newline
+	$\delta \leftarrow \max{\delta, | u - V(s)|}$
+	\newline
+	Until $\delta < \theta$ (small positive number)
+	
+	
 	\subsection{Discount factor}
+	 One  important parameter for solving  MDPs is the discount factor $\gamma$. Discount factors are important in MDPs, in a sense they determine how the reward is counted in future states.
+	 In this section, we will evaluate the impact discount factor has, to value of each state and ultimately to optimal policy $\pi^{*} $ after the convergece of value iteration algorithm.
+	 
+	\begin{center}
+		\begin{tabular}{ c c c c}
+			 \hline
+			\multicolumn{4}{|c|}{  \text{$\gamma = 0.9$} } \\
+			\hline
+			0.61  & 0.77  & 0.93 & 1.00 \\ 
+			0.49  & 0.00  & 0.58  & 1.00 \\  
+			0.37 &  0.33 & 0.43 & 0.19    
+		\end{tabular}
+	\end{center}
+	
+	
+		\begin{center}
+		\begin{tabular}{ c c c c}
+						 \hline
+			\multicolumn{4}{|c|}{  \text{$\gamma = 0.6$} } \\
+			\hline
+			0.18 & 0.42 & 0.86 &1.00 \\ 
+			0.05 & 0.00 & 0.30 & 1.00|  \\  
+			0.37 &  0.33 & 0.43 & 0.19    
+		\end{tabular}
+	\end{center}
+
+
+	\begin{center}
+	\begin{tabular}{ c c c c}
+					 \hline
+		\multicolumn{4}{|c|}{  \text{$\gamma = 0.2$} } \\
+		\hline
+		0.61  & 0.77  & 0.93 & 1.00 \\ 
+		0.49  & 0.00  & 0.58  & 1.00 \\  
+		-0.02 & 0.01 &  0.10 & -0.07
+	\end{tabular}
+\end{center}
+
+
+
+
 	\section{A* Algorithm}
 	A* is a graph traversal and path search algorithm. It differs from Dijkstra algorithm as it uses best first search taking into account the current cost g and heuristic function h. It gives priority to nodes that are supposed to be better than others according to the value of function f(s) = g(s) + h(s) where h(s) is a heuristic function. For h(s) = 0, A* is similar to Dijkstra.
 	\subsection{Pseudo code}
+	
+	\section{Conclusion}
+	\section{References}
+	
+	
+	\begin{thebibliography}{9}
+		\bibitem{latexcompanion} 
+		Michel Goossens, Frank Mittelbach, and Alexander Samarin. 
+		\textit{The \LaTeX\ Companion}. 
+		Addison-Wesley, Reading, Massachusetts, 1993.
+		
+		\bibitem{einstein} 
+		Albert Einstein. 
+		\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) 
+		[\textit{On the electrodynamics of moving bodies}]. 
+		Annalen der Physik, 322(10):891–921, 1905.
+		
+		\bibitem{knuthwebsite} 
+		Knuth: Computers and Typesetting,
+		\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
+	\end{thebibliography}
+	
 \end{document}
