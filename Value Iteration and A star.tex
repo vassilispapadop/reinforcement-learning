@@ -1,6 +1,6 @@
 \documentclass[10pt,a4paper,twocolumn]{article}
 
-\title{Value Iteration and A*}
+\title{On Markov Decision Process, Value Iteration and A*}
 \author{Vasileios Papadopoulos}
 
 
@@ -11,20 +11,28 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 
 \begin{document}
 	\maketitle
 	
 	\textbf{Abstract}
-	Write about mdp, value iteration algorithm, optimal policy impact of discount factor and A8 algorithm
-	
+	Reinforcement learning is the science of learning to make decisions. In order to make such decisions, the agent has to learn either a policy,	a value function and/or a model. The importance of decision making comes to the affect it has on future expected rewards, agent states and perharps in enviroment states. In this article, we will discuss the mathematical formulation of agent-enviroment interaction know as Markov Decision Process (MDP) as well the Value iteration algorithm which helps us to calculate the value of each possible state the agent can live. In the last part, we will use A* algorithm to find the best possible path in a small 3x4 grid world using value-iteration output as heuristic function.
 	
 	
 	\section{Environment}
 	
-	In a stochastic environment, for each action an agent performs there is a probability P(a) = 0.8 to succeed(to as planned) and 1-P(a) = 0.2 to move to different direction. For example: if the agent wants to move UP, there is a 0.8 probability to actually move UP and 0.2 probability to move either LEFT or RIGHT. If the agent wants to move RIGHT it will succeed with 0.8 probability and with 0.2 it will move LEFT or it will stay and the same state if it hits the wall. Figure below shows grid world and stochasticity.
+	Assume a fully observable, non-deterministic 3x4 grid world. In such stochastic environment, 
+	each action an agent performs has a certain probability P(a) to succeed(to go as planned) and 1-P(a) to move to a different direction. 
+	For example: if the agent wants to go \textit{up}, there is a 0.8 probability to actually move \textit{up} and 0.2 probability to either move \textit{left} or \textit{right}. If the agent wants to move \textit{right} it will succeed with 0.8 probability and with 0.2 it will either move \textit{left} or it will stay and the same state if it hits the wall. Thus, the transition model can be summarized as a probability P(a) to move to desire direction and 1-P(a) to land to state which is perpendicular of the itentended action. Figure below depicts 3x4 grid world and the transition model.
+	\includegraphics{grid_world}
+
 	In case there is a wall in the direction that the agents wishes to move, then it stays put.
-	The agent is in constant feedback loop with the environment meaning it takes an action $\alpha$ in state s and lands in a stochastic manner to state s’ and gets a reward r.
+	The agent is in constant feedback loop with the environment meaning it takes an action $\alpha$ in state s and lands in a stochastic manner in state s’ and gets a reward r.
+	
+	The above desicion making problem can be formulated mathematically using Markov Decision Process which will discuss in next section.
 	
 	\section{Markov Decision Process (MDP)}
 	
@@ -39,7 +47,7 @@
 		\item Reward function: $R(s)$
 	\end{enumerate}
 
-	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. In real world applications such a model is unknown and the goal is to approximate with techniques which are out of the scope of this work.
+	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. However, in real world applications such a model is unknown, the agent does not know state transition probabilities or rewards and it only discover them by taking an action on certain state and receives the reward of the resultant state. This approach is called Q-Learning and it a model-free learning.
 	
 	\section{Value Iteration}
 	Value iteration or Bellman update is a recursive dynamic programming algorithm. It is a method of computing the best values for each possible state an agent can be and eventually extracting the optimal policy $\pi$* for an MDP problem. The agent takes an action $\alpha$ from state s and it lands in state s’ with a probability as this given by transition model . 
@@ -172,9 +180,52 @@
 
 	\section{A* Algorithm}
 	A* is a graph traversal and path search algorithm. It differs from Dijkstra algorithm as it uses best first search taking into account the current cost g and heuristic function h. It gives priority to nodes that are supposed to be better than others according to the value of function f(s) = g(s) + h(s) where h(s) is a heuristic function. For h(s) = 0, A* is similar to Dijkstra.
+	
 	\subsection{Pseudo code}
+	openSet := {start}
+	\newline
+	cameFrom := an empty map
+	\newline
+	gScore := map with default value of Infinity
+	\newline
+	gScore[start] := 0
+	\newline
+	fScore := map with default value of Infinity
+	\newline
+	fScore[start] := h(start)
+	\newline
+	 while openSet is not empty
+	\newline
+	current := the node in openSet having the lowest fScore[] value
+		\newline
+	if current = goal
+		\newline
+	return reconstructPath(cameFrom, current)
+		\newline
+	openSet.Remove(current)
+		\newline
+	for each neighbor of current
+	\newline
+	tentativeGScore := gScore[current] + d(current, neighbor)
+		\newline
+	if tentativeGScore < gScore[neighbor]
+		\newline
+
+	cameFrom[neighbor] := current
+		\newline
+	gScore[neighbor] := tentative_gScore
+		\newline
+	fScore[neighbor] := gScore[neighbor] + h(neighbor)
+		\newline
+	if neighbor not in openSet
+		\newline
+	openSet.add(neighbor)
+		\newline
+
+	return failure
 	
 	\section{Conclusion}
+	In this article we briefly presented Markov Decision Process problems and the challenge to find the optimal policy for each state an agent could be. We used Value Iteration algorithm to calculate the value of each state and explored the impact of discount factor $\gamma$. Lastly, we implemented A* path finding algorithm and used the converged state-values as heuristic.
 	\section{References}
 	
 	
