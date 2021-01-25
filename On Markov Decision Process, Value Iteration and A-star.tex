@@ -54,8 +54,7 @@
 	\end{equation}
 	for all possible histories $ S_{1} ... S_{t-1}, S_{t} $
 	
-	
-	In Markov decision process problems the goal is to find an optimal policy $\pi$* that gives  the best action for each state. Optimal policy $\pi$* maximizes the expected sum of discounted(or not) rewards.
+	In Markov decision process problems the goal is to find an optimal policy $\pi$* that gives  the best action for each state. Optimal policy $\pi$* maximizes the expected sum of discounted(or not) rewards. The reward and discount factor together define what is means to be optimal in MDP framework.
 	
 	An MDP is defined by the following components:
 	\begin{enumerate}
@@ -64,18 +63,37 @@
 		\item Set of possible actions: $A = \{ a_{1}, a{2}, ..., a_{m} \}$
 		\item Transition model: $T(s, a, s')$
 		\item Reward function: $R(s)$
+		\item $\gamma \in [0,1] $ is the discount factor
 	\end{enumerate}
 
 	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. However, in real world applications such a model is unknown, the agent does not know state transition probabilities or rewards and it only discover them by taking an action on certain state and receives the reward of the resultant state. This approach is called Q-Learning and it a model-free learning.
+	$\gamma$ factor trades off the later rewards to earlier ones. Expected discounted reward is defined as:
+	
+	\begin{equation}
+		\mathbb{E}[R | s,a] = \sum_{r}r \sum_{s'}p(r, s' | s, a)
+	\end{equation}
+	
+	while the expected utility of each state is:
+	
+	\begin{equation}
+		U(s) = \mathbb{E}[ \sum_{i}\gamma^{i}R(s_{i})]
+	\end{equation}
+	
+	
+	and the total utility is:
+	
+	\begin{equation}
+		U([s_{0}, s_{1}, .... s_{i}, ....] = \sum_{i}\gamma^{i}R(s_{i})
+	\end{equation}
 	
 	\section{Value Iteration}
-	Value iteration or Bellman update is a recursive dynamic programming algorithm. It is a method of computing the best values for each possible state an agent can be and eventually extracting the optimal policy $\pi$* for an MDP problem. The agent takes an action $\alpha$ from state s and it lands in state s’ with a probability as this given by transition model . 
+	Value iteration or Bellman update is a recursive dynamic programming algorithm. It is a method of computing the best values for each possible state an agent can be and eventually extracting the optimal policy $\pi$* for an MDP problem. The agent takes an action $\alpha$ from state s and it lands in state s’ with a probability as this given by transition model. Consider the grid world we have shown above. The reward of state $R(\big \langle 3,4 \big \rangle) = 1$ while $R(\big \langle 2,4 \big \rangle) = -1$
 	
 	\begin{equation}
 		V(s) \leftarrow \max_{a}{ \sum_{s'}T(s,a,s') [R(s,a,s') + V(s')]}
 	\end{equation}
 	
-	Intuitively, the value of V(s) is the best action that maximizes the expected reward. Consider the grid world we defined before. In order to compute the value state of cell(3,3) we need to calculate all the possible future rewards for every possible action $A = \{ a_{1}, a{2}, ..., a_{m} \}$, with discount factor $\gamma = 0.9$.
+	Intuitively, the value of V(s) is the best action that maximizes the expected reward. In order to compute the value state of cell(3,3) we need to calculate all the possible future rewards for every possible action $A = \{ a_{1}, a{2}, ..., a_{m} \}$. In this example we set discount factor $\gamma = 0.9$ and living reward $R=0$. Breaking down equation (5) we write:
 	
 	
 	\begin{enumerate}
@@ -183,7 +201,7 @@
 	\end{equation}
 
 
-	The above process is repeated for all states. After having calculated all values we repeat again until convergence which is guaranteed by Value iteration algorithm
+	The above process is repeated for all states. After having calculated all values we repeat again until convergence which is guaranteed by Value iteration algorithm.
 	\subsection{Pseudo code}
 	Below we present the pseudo code algorigthm of Value Iteration.
 	\newline
@@ -206,7 +224,7 @@
 	
 	\subsection{Discount factor}
 	 One  important parameter for solving  MDPs is the discount factor $\gamma$. Discount factors are important in MDPs, in a sense they determine how the reward is counted in future states.
-	 In this section, we will evaluate the impact discount factor has, to value of each state and ultimately to optimal policy $\pi^{*} $ after the convergece of value iteration algorithm.
+	 In this section, we will evaluate the impact discount factor $\gamma$ has, to optimum value $V_{s}^{*}$ of each state s and ultimately to optimal policy $\pi^{*} $ after the convergece of value iteration algorithm. Particularly, given 3x4 world we defined in section I we will explore the results for 3 different $\gamma$ values, 0.9, 0.6, 0.2.
 	 
 	\begin{center}
 		\begin{tabular}{ c c c c}
