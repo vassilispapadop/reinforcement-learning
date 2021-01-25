@@ -36,6 +36,16 @@
 	
 	\section{Markov Decision Process (MDP)}
 	
+	Markov Decision process can formally describe the interaction between an agent and the environment. MDPs rely on so-called Markov property, which states the the future is independent of the past given the current/present state. Intuitevely, markov property tells us that all information gathered from previous states can be consider as irelevant as the information of the current state is sufficient. We can formulate this definition as:
+	
+	A state $s$ has a Markov property if for all states $\forall{s'} \in S$ and all rewards $r \in R$
+	
+	\begin{equation}
+		p(R_{t+1} = r , S_{t+1}=s' | S_{t=s}) = p(R_{t+1} = r , S_{t+1}=s' | S_{1} ... S_{t-1}, S_{t})
+	\end{equation}
+	for all possible histories $ S_{1} ... S_{t-1}, S_{t} $
+	
+	
 	In Markov decision process problems the goal is to find an optimal policy $\pi$* that gives  the best action for each state. Optimal policy $\pi$* maximizes the expected sum of discounted(or not) rewards.
 	
 	An MDP is defined by the following components:
