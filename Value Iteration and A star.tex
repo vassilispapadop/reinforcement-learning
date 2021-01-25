@@ -27,7 +27,13 @@
 	Assume a fully observable, non-deterministic 3x4 grid world. In such stochastic environment, 
 	each action an agent performs has a certain probability P(a) to succeed(to go as planned) and 1-P(a) to move to a different direction. 
 	For example: if the agent wants to go \textit{up}, there is a 0.8 probability to actually move \textit{up} and 0.2 probability to either move \textit{left} or \textit{right}. If the agent wants to move \textit{right} it will succeed with 0.8 probability and with 0.2 it will either move \textit{left} or it will stay and the same state if it hits the wall. Thus, the transition model can be summarized as a probability P(a) to move to desire direction and 1-P(a) to land to state which is perpendicular of the itentended action. Figure below depicts 3x4 grid world and the transition model.
-	\includegraphics{grid_world}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=90mm]{grid_world}
+	\caption{3x4 grid world and transition model \label{overflow}}
+\end{figure}
+	
+	
 
 	In case there is a wall in the direction that the agents wishes to move, then it stays put.
 	The agent is in constant feedback loop with the environment meaning it takes an action $\alpha$ in state s and lands in a stochastic manner in state s’ and gets a reward r.
@@ -41,7 +47,10 @@
 	A state $s$ has a Markov property if for all states $\forall{s'} \in S$ and all rewards $r \in R$
 	
 	\begin{equation}
-		p(R_{t+1} = r , S_{t+1}=s' | S_{t=s}) = p(R_{t+1} = r , S_{t+1}=s' | S_{1} ... S_{t-1}, S_{t})
+		\begin{split}
+			p(R_{t+1} = r , S_{t+1}=s' | S_{t=s}) = \\ 
+		 	p(R_{t+1} = r , S_{t+1}=s' | S_{1} ... S_{t-1}, S_{t})
+		\end{split}
 	\end{equation}
 	for all possible histories $ S_{1} ... S_{t-1}, S_{t} $
 	
@@ -105,8 +114,11 @@
 	
 		\item Agent tries to go up: 
 		\begin{itemize}
-			\item $V(\big \langle 3,3 \big \rangle)_{up} = \sum_{s'} T(\big \langle 3,3 \big \rangle, up, s') [R(\big \langle 3,3 \big \rangle), \gamma V(s')]
-			$
+			
+			\item 
+			\begin{split}
+				$V(\big \langle 3,3 \big \rangle)_{up} = \sum_{s'} T(\big \langle 3,3 \big \rangle, up, s') [R(\big \langle 3,3 \big \rangle), \gamma V(s')]$	
+			\end{split}
 		\end{itemize}
 		\begin{itemize}
 			\item $V(\big \langle 3,3 \big \rangle)_{up} = 0.9[0.8 * 0 + 0 * 0 + 0.1 * 1]$

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.1.20)  25 JAN 2021 12:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.1.20)  25 JAN 2021 12:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -171,29 +171,16 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <./images//grid_world.png, id=1, 301.125pt x 142.5325pt>
 File: ./images//grid_world.png Graphic file (type png)
 <use ./images//grid_world.png>
-Package pdftex.def Info: ./images//grid_world.png  used on input line 30.
-(pdftex.def)             Requested size: 301.12425pt x 142.53214pt.
+Package pdftex.def Info: ./images//grid_world.png  used on input line 32.
+(pdftex.def)             Requested size: 256.0748pt x 121.2206pt.
 
-Overfull \hbox (80.12425pt too wide) in paragraph at lines 27--31
-[] 
+Overfull \hbox (35.0748pt too wide) in paragraph at lines 32--33
+ [][] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 37--37
+Underfull \hbox (badness 10000) in paragraph at lines 43--43
 []\T1/cmr/bx/n/14.4 Markov De-ci-sion Pro-cess
- []
-
-
-Overfull \hbox (63.71916pt too wide) detected at line 45
-\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 R[] \OT1/cmr/m/n/10 = \OML/
-cmm/m/it/10 r; S[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 s[]\OMS/cmsy/m/n/10 j\OML
-/cmm/m/it/10 S[]\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm
-/m/it/10 R[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 r; S[] \OT1/cmr/m/n/10 = \OML/c
-mm/m/it/10 s[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 S[]:::S[]; S[]\OT1/cmr/m/n/10 
-)
  []
 
 [1{/Users/vpapadop/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map
@@ -201,31 +188,37 @@ mm/m/it/10 s[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 S[]:::S[]; S[]\OT1/cmr/m/n/10
 
 
  <./images//grid_world.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 75--76
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
 []$\OML/cmm/m/it/10 V\OT1/cmr/m/n/10 ([]3\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 3[]
 )[] =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 86--87
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
 []$\OML/cmm/m/it/10 V\OT1/cmr/m/n/10 ([]3\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 3[]
 )[] =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
 []$\OML/cmm/m/it/10 V\OT1/cmr/m/n/10 ([]3\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 3[]
 )[] =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--110
-[]$\OML/cmm/m/it/10 V\OT1/cmr/m/n/10 ([]3\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 3[]
-)[] =
- []
+! Package amsmath Error: \begin{split} won't work here.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.121 			\end{split}
+                    
+\Did you forget a preceding \begin{equation}?
+If not, perhaps the `aligned' environment is what you want. 
 
 
-Overfull \hbox (115.84048pt too wide) in paragraph at lines 122--124
+Overfull \hbox (115.84048pt too wide) in paragraph at lines 134--136
 []$\OML/cmm/m/it/10 V\OT1/cmr/m/n/10 ([]3\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 3[]
 ) = [][][\OML/cmm/m/it/10 V\OT1/cmr/m/n/10 ([]3\OML/cmm/m/it/10 ; \OT1/cmr/m/n/
 10 3[])[]\OML/cmm/m/it/10 ; V\OT1/cmr/m/n/10 ([]3\OML/cmm/m/it/10 ; \OT1/cmr/m/
@@ -235,14 +228,14 @@ r/m/n/10 3[])[]]$
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 195--223
+Underfull \hbox (badness 10000) in paragraph at lines 207--235
 
  []
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.226 	gScore[neighbor] := tentative_
+l.238 	gScore[neighbor] := tentative_
                                      gScore
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -250,52 +243,52 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.234 
+l.246 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--234
+Underfull \hbox (badness 10000) in paragraph at lines 236--246
 \OML/cmm/m/it/10 fScore\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 neighbor\OT1/cmr/m/n/1
 0 ] := \OML/cmm/m/it/10 gScore\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 neighbor\OT1/cm
 r/m/n/10 ] +
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--234
+Underfull \hbox (badness 10000) in paragraph at lines 236--246
 
  []
 
 
-Underfull \hbox (badness 5756) in paragraph at lines 244--247
+Underfull \hbox (badness 5756) in paragraph at lines 256--259
 []\T1/cmr/m/n/10 Michel Goossens, Frank Mit-tel-bach, and
  []
 
 
-Underfull \hbox (badness 7133) in paragraph at lines 249--253
+Underfull \hbox (badness 7133) in paragraph at lines 261--265
 \T1/cmr/m/it/10 Kör-per\T1/cmr/m/n/10 . (Ger-man) [\T1/cmr/m/it/10 On the elec-
 tro-dy-nam-
  []
 
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
-56.
+68.
 (/Users/vpapadop/Library/TinyTeX/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-Overfull \hbox (56.98889pt too wide) in paragraph at lines 255--257
+Overfull \hbox (56.98889pt too wide) in paragraph at lines 267--269
 \T1/cmtt/m/n/10 http://www-cs-faculty.stanford.edu/^^Cuno/abcde.html 
  []
 
 [3] (./Value Iteration and A star.aux) ) 
 Here is how much of TeX's memory you used:
- 2325 strings out of 481252
- 30696 string characters out of 5914732
- 319565 words of memory out of 5000000
- 19246 multiletter control sequences out of 15000+600000
+ 2326 strings out of 481252
+ 30706 string characters out of 5914732
+ 317573 words of memory out of 5000000
+ 19247 multiletter control sequences out of 15000+600000
  418719 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 68i,8n,74p,750b,240s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,15n,74p,750b,240s stack positions out of 5000i,500n,10000p,200000b,80000s
  </Users/vpapadop/Library/TinyTeX/texmf
 -var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </Users/vpapadop/Library/TinyT
 eX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0700.600pk> </Users/vpapadop/Libra
@@ -317,7 +310,7 @@ adop/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users
 </Users/vpapadop/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 5.pfb></Users/vpapadop/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy7.pfb>
-Output written on "Value Iteration and A star.pdf" (3 pages, 170233 bytes).
+Output written on "Value Iteration and A star.pdf" (3 pages, 170237 bytes).
 PDF statistics:
  325 PDF objects out of 1000 (max. 8388607)
  73 compressed objects within 1 object stream
