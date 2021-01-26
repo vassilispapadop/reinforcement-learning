@@ -225,17 +225,16 @@
 	 One  important parameter for solving  MDPs is the discount factor $\gamma$. Discount factors are important in MDPs, in a sense they determine how the reward is counted in future states.
 	 In this section, we will evaluate the impact discount factor $\gamma$ has, to optimum value $V_{s}^{*}$ of each state s and ultimately to optimal policy $\pi^{*} $ after the convergece of value iteration algorithm. Particularly, given 3x4 world we defined in section I, we will explore the results for 3 different $\gamma$ values, 0.9, 0.6, 0.2 after 100 iterations.
 	 
-	\begin{center}
-		\begin{tabular}{ c c c c}
-			 \hline
-			\multicolumn{4}{|c|}{  \text{$\gamma = 0.9$} } \\
-			\hline
-			0.55  & 0.69  & 0.84 & 1.00 \\ 
-			0.44  & 0.00  & 0.53  & 1.00 \\  
-			0.34 &  0.29 & 0.38 & 0.17    
-		\end{tabular}
-	\end{center}
-	
+	 	\begin{center}
+	 	\begin{tabular}{ c c c c}
+	 		\hline
+	 		\multicolumn{4}{|c|}{  \text{$\gamma = 0.2$} } \\
+	 		\hline
+	 		-0.01  & 0.02  & 0.16 & 1.00 \\ 
+	 		-0.01  & 0.00  & 0.0  & -1.00 \\  
+	 		-0.01 & -0.01 &  -0.01 & -0.01
+	 	\end{tabular}
+	 \end{center}
 	
 		\begin{center}
 		\begin{tabular}{ c c c c}
@@ -243,32 +242,30 @@
 			\multicolumn{4}{|c|}{  \text{$\gamma = 0.6$} } \\
 			\hline
 			0.11 & 0.25 & 0.52 &1.00 \\ 
-			0.03 & 0.00 & 0.18 & 1.00  \\  
-			-0.01 &  0.0 & 0.06 & -0.01    
+			0.03 & 0.00 & 0.18 & -1.00  \\  
+			-0.01 &  0.0 & 0.06 & -0.04    
 		\end{tabular}
 	\end{center}
 
-
 	\begin{center}
 	\begin{tabular}{ c c c c}
-	 \hline
-		\multicolumn{4}{|c|}{  \text{$\gamma = 0.2$} } \\
 		\hline
-		-0.01  & 0.02  & 0.16 & 1.00 \\ 
-		-0.01  & 0.00  & 0.0  & 1.00 \\  
-		-0.01 & -0.01 &  -0.01 & -0.01
+		\multicolumn{4}{|c|}{  \text{$\gamma = 0.9$} } \\
+		\hline
+		0.55  & 0.69  & 0.84 & 1.00 \\ 
+		0.44  & 0.00  & 0.53  & -1.00 \\  
+		0.34 &  0.29 & 0.38 & 0.17    
 	\end{tabular}
 \end{center}
-It is clear the discount factor dictates the optimal policy adopted by an agent.
 
-Figure 2 shows the number of iterations required from the algorithm to converge for different $\gamma$ values.
+Figure 2 shows the number of iterations required from the algorithm to converge for different $\gamma$ values. 
 
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=80mm]{gammas}
 		\caption{Convergence for $\gamma$ 0.2, 0.6, 0.9 }
 	\end{figure}
-
+	Due to trivial problem we discuss in this article, there is no substantial differentiation in number of iterations among different $\gamma$, though there exists some distinction in behaviour.
 
 	\section{A* Algorithm}
 	A* is a graph traversal and path search algorithm. It differs from Dijkstra as it uses the best first search while taking into account the current cost g and an heuristic function h. It gives priority to nodes that are supposed to be better than others according to the value of function f(s) = g(s) + h(s) where h(s) is a heuristic function. For h(s) = 0, A* is similar to Dijkstra.
@@ -339,6 +336,5 @@ Figure 2 shows the number of iterations required from the algorithm to converge 
 		\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
 	\end{thebibliography}
 	
-\section{Appendix}
 
 \end{document}

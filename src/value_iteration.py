@@ -240,6 +240,7 @@ def calculate_values(grid, gamma):
 
 
 if __name__ == '__main__':
+
   grid = standard_grid(obey_prob=0.8, step_cost=-0.04)
 
   # print rewards
