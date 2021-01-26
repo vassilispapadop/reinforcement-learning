@@ -19,30 +19,30 @@
 	\maketitle
 	
 	\textbf{Abstract}
-	Reinforcement learning is the science of learning to make decisions. In order to make such decisions, the agent has to learn either a policy,	a value function and/or a model. The importance of decision making comes to the affect it has on future expected rewards, agent states and perharps in enviroment states. In this article, we will discuss the mathematical formulation of agent-enviroment interaction know as Markov Decision Process (MDP) as well the Value iteration algorithm which helps us to calculate the value of each possible state the agent can live. In the last part, we will use A* algorithm to find the best possible path in a small 3x4 grid world using value-iteration output as heuristic function.
+	Reinforcement learning is the science of learning to make decisions. In order to make such decisions, the agent has to learn either a policy,	a value function and/or a model. The importance of decision making comes to the affect it has on future expected rewards, agent states and perharps in enviroment states. In this article, we will discuss the mathematical formulation of agent-enviroment interaction, known as Markov Decision Process (MDP). We will present the Value iteration algorithm which helps us to calculate the value of each possible state the agent can live. In the last part, we will use A* algorithm to find the best possible path in a small 3x4 grid world using value-iteration output as a heuristic function.
 	
 	
 	\section{Environment}
 	
 	Assume a fully observable, non-deterministic 3x4 grid world. In such stochastic environment, 
 	each action an agent performs has a certain probability P(a) to succeed(to go as planned) and 1-P(a) to move to a different direction. 
-	For example: if the agent wants to go \textit{up}, there is a 0.8 probability to actually move \textit{up} and 0.2 probability to either move \textit{left} or \textit{right}. If the agent wants to move \textit{right} it will succeed with 0.8 probability and with 0.2 it will either move \textit{left} or it will stay and the same state if it hits the wall. Thus, the transition model can be summarized as a probability P(a) to move to desire direction and 1-P(a) to land to state which is perpendicular of the itentended action. Figure below depicts 3x4 grid world and the transition model.
+	For example: if the agent wants to go \textit{up}, there is a 0.8 probability to actually move \textit{up} and 0.2 probability to either move \textit{left} or \textit{right}. If the agent wants to move \textit{right} it will succeed with 0.8 probability and with 0.2 it will either move \textit{left} or it will stay and the same state if it hits the wall. Thus, the transition model can be summarized as a probability P(a) to move to desire direction and 1-P(a) to land to state which is perpendicular of the itentended action. Figure (1) depicts 3x4 grid world and the transition model.
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=90mm]{grid_world}
+	\includegraphics[width=80mm]{grid_world}
 	\caption{3x4 grid world and transition model \label{overflow}}
 \end{figure}
 	
 	
 
 	In case there is a wall in the direction that the agents wishes to move, then it stays put.
-	The agent is in constant feedback loop with the environment meaning it takes an action $\alpha$ in state s and lands in a stochastic manner in state s’ and gets a reward r.
+	The agent is in constant feedback loop with the environment meaning it takes an action $\alpha$ in state s and lands in a stochastic manner in state s’ and gets a reward r'.
 	
 	The above desicion making problem can be formulated mathematically using Markov Decision Process which will discuss in next section.
 	
 	\section{Markov Decision Process (MDP)}
 	
-	Markov Decision process can formally describe the interaction between an agent and the environment. MDPs rely on so-called Markov property, which states the the future is independent of the past given the current/present state. Intuitevely, markov property tells us that all information gathered from previous states can be consider as irelevant as the information of the current state is sufficient. We can formulate this definition as:
+	Markov Decision process can formally describe the interaction between an agent and the environment. MDPs rely on so-called Markov property, which states the the future is independent of the past given the current/present state. Intuitevely, markov property tells us that all information gathered from previous states can be consider as irrelevant as the information of the current state is sufficient. We can formulate this definition as:
 	
 	A state $s$ has a Markov property if for all states $\forall{s'} \in S$ and all rewards $r \in R$
 	
@@ -54,7 +54,7 @@
 	\end{equation}
 	for all possible histories $ S_{1} ... S_{t-1}, S_{t} $
 	
-	In Markov decision process problems the goal is to find an optimal policy $\pi$* that gives  the best action for each state. Optimal policy $\pi$* maximizes the expected sum of discounted(or not) rewards. The reward and discount factor together define what is means to be optimal in MDP framework.
+	In Markov decision process problems the goal is to find an optimal policy $\pi$* that gives  the best action for each state. Optimal policy $\pi$* maximizes the expected sum of discounted(or not) rewards. The reward and discount factor together define what it means to be optimal in an MDP framework.
 	
 	An MDP is defined by the following components:
 	\begin{enumerate}
@@ -66,8 +66,7 @@
 		\item $\gamma \in [0,1] $ is the discount factor
 	\end{enumerate}
 
-	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. However, in real world applications such a model is unknown, the agent does not know state transition probabilities or rewards and it only discover them by taking an action on certain state and receives the reward of the resultant state. This approach is called Q-Learning and it a model-free learning.
-	$\gamma$ factor trades off the later rewards to earlier ones. Expected discounted reward is defined as:
+	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. However, in real world applications such a model is unknown, the agent does not know state transition probabilities or rewards and it could only discover them by taking an action on certain state and receives the reward of the landed state. This approach is called Q-Learning and it a model-free learning. The discount factor $\gamma$ trades off the later rewards to earlier ones. Expected discounted reward is defined as:
 	
 	\begin{equation}
 		\mathbb{E}[R | s,a] = \sum_{r}r \sum_{s'}p(r, s' | s, a)
@@ -87,7 +86,7 @@
 	\end{equation}
 	
 	\section{Value Iteration}
-	Value iteration or Bellman update is a recursive dynamic programming algorithm. It is a method of computing the best values for each possible state an agent can be and eventually extracting the optimal policy $\pi$* for an MDP problem. The agent takes an action $\alpha$ from state s and it lands in state s’ with a probability as this given by transition model. Consider the grid world we have shown above. The reward of state $R(\big \langle 3,4 \big \rangle) = 1$ while $R(\big \langle 2,4 \big \rangle) = -1$
+	Value iteration or Bellman update is a recursive dynamic programming algorithm. It is a method of computing the best values for each possible state an agent can be and eventually extracting the optimal policy $\pi$* for an MDP problem. The agent takes an action $\alpha$ from state s and it lands in state s’ with a probability as this given by transition model. Consider the grid world we have shown above. The reward of state $R(\big \langle 3,4 \big \rangle) = 1$ while $R(\big \langle 2,4 \big \rangle) = -1$. The Bellman update equation is given below.
 	
 	\begin{equation}
 		V(s) \leftarrow \max_{a} { ( R(s,a) + \gamma \sum_{s'}T(s,a,s')V(s') )}
@@ -224,7 +223,7 @@
 	
 	\subsection{Discount factor}
 	 One  important parameter for solving  MDPs is the discount factor $\gamma$. Discount factors are important in MDPs, in a sense they determine how the reward is counted in future states.
-	 In this section, we will evaluate the impact discount factor $\gamma$ has, to optimum value $V_{s}^{*}$ of each state s and ultimately to optimal policy $\pi^{*} $ after the convergece of value iteration algorithm. Particularly, given 3x4 world we defined in section I we will explore the results for 3 different $\gamma$ values, 0.9, 0.6, 0.2 after 100 iterations.
+	 In this section, we will evaluate the impact discount factor $\gamma$ has, to optimum value $V_{s}^{*}$ of each state s and ultimately to optimal policy $\pi^{*} $ after the convergece of value iteration algorithm. Particularly, given 3x4 world we defined in section I, we will explore the results for 3 different $\gamma$ values, 0.9, 0.6, 0.2 after 100 iterations.
 	 
 	\begin{center}
 		\begin{tabular}{ c c c c}
@@ -264,15 +263,22 @@ It is clear the discount factor dictates the optimal policy adopted by an agent.
 
 Figure 2 shows the number of iterations required from the algorithm to converge for different $\gamma$ values.
 
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[width=90mm]{gammas}
-	\caption{Convergence for $\gamma$ 0.2, 0.6, 0.9 }
-\end{figure}
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[width=80mm]{gammas}
+		\caption{Convergence for $\gamma$ 0.2, 0.6, 0.9 }
+	\end{figure}
 
 
 	\section{A* Algorithm}
-	A* is a graph traversal and path search algorithm. It differs from Dijkstra algorithm as it uses best first search taking into account the current cost g and heuristic function h. It gives priority to nodes that are supposed to be better than others according to the value of function f(s) = g(s) + h(s) where h(s) is a heuristic function. For h(s) = 0, A* is similar to Dijkstra.
+	A* is a graph traversal and path search algorithm. It differs from Dijkstra as it uses the best first search while taking into account the current cost g and an heuristic function h. It gives priority to nodes that are supposed to be better than others according to the value of function f(s) = g(s) + h(s) where h(s) is a heuristic function. For h(s) = 0, A* is similar to Dijkstra.
+	
+	The heuristic function is a way to guide the algorithm about the direction it needs to take, in order to find the goal in fewer steps. Usually, the heuristic function emerges from solving the given problem with relaxations about the constraints. We can use any heuristic function for a certain problem as long as it admissable. Admissible means that the heuristic should never overestimate the actual cost.
+	
+	Having calculated the optimal values $V^{*}$ for the 3x4 grid world, we will use them as heuristic to find the sortest path from position (2,0) to terminal state with higher reward (0,3). The output of the algorithm is:
+	[(2, 0), (1, 0), (0, 0), (0, 1), (0, 2), (0, 3)], which is the shortest path for this pair of start, end nodes.
+	
+	In the last section, we present $A^{*}$ pseudocode.
 	
 	\subsection{Pseudo code}
 	openSet := {start}
@@ -311,6 +317,8 @@ Figure 2 shows the number of iterations required from the algorithm to converge 
 	
 	\section{Conclusion}
 	In this article we briefly presented Markov Decision Process problems and the challenge to find the optimal policy for each state an agent could be. We used Value Iteration algorithm to calculate the value of each state and explored the impact of discount factor $\gamma$. Lastly, we implemented A* path finding algorithm and used the converged state-values as heuristic.
+	We also provided Python implemantions of the two considered algorithms. $\text{valueiteration.py and astar.py}$.
+	
 	\section{References}
 	
 	
@@ -331,4 +339,6 @@ Figure 2 shows the number of iterations required from the algorithm to converge 
 		\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
 	\end{thebibliography}
 	
+\section{Appendix}
+
 \end{document}
