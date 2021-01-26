@@ -90,7 +90,7 @@
 	Value iteration or Bellman update is a recursive dynamic programming algorithm. It is a method of computing the best values for each possible state an agent can be and eventually extracting the optimal policy $\pi$* for an MDP problem. The agent takes an action $\alpha$ from state s and it lands in state s’ with a probability as this given by transition model. Consider the grid world we have shown above. The reward of state $R(\big \langle 3,4 \big \rangle) = 1$ while $R(\big \langle 2,4 \big \rangle) = -1$
 	
 	\begin{equation}
-		V(s) \leftarrow \max_{a}{ \sum_{s'}T(s,a,s') [R(s,a,s') + V(s')]}
+		V(s) \leftarrow \max_{a} { ( R(s,a) + \gamma \sum_{s'}T(s,a,s')V(s') )}
 	\end{equation}
 	
 	Intuitively, the value of V(s) is the best action that maximizes the expected reward. In order to compute the value state of cell(3,3) we need to calculate all the possible future rewards for every possible action $A = \{ a_{1}, a{2}, ..., a_{m} \}$. In this example we set discount factor $\gamma = 0.9$ and living reward $R=0$. Breaking down equation (5) we write:
