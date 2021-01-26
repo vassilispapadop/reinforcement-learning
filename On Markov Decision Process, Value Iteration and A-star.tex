@@ -1,8 +1,8 @@
 \documentclass[10pt,a4paper,twocolumn]{article}
-
+\newcommand\tab[1][0.25cm]{\hspace*{#1}}
 \title{%
 		On Markov Decision Process, Value Iteration and A* \\
-	\large Assignment on Fundamental knowledge on Artificial Intelligence course\\
+	\large Assignment: Fundamental knowledge on Artificial Intelligence course\\
 			University of Piraeus, Demokritos}
 \author{Vasileios Papadopoulos}
 
@@ -211,15 +211,15 @@
 	\newline
 	Repeat:
 	\newline
-	$\delta \leftarrow 0$
+	\tab $\delta \leftarrow 0$
 	\newline
-	$\text{For each s} \in S:$
+	\tab  $\text{For each s} \in S:$
 	\newline
-	$u \leftarrow V(s)$
+	\tab  \tab  $u \leftarrow V(s)$
 	\newline
-	$V(s) \leftarrow \max{ ( R(s,a) + \gamma \sum_{s'}T(s,a,s')V(s') )}$
+	\tab  \tab  $V(s) \leftarrow \max{ ( R(s,a) + \gamma \sum_{s'}T(s,a,s')V(s') )}$
 	\newline
-	$\delta \leftarrow \max{\delta, | u - V(s)|}$
+	\tab  \tab  $\delta \leftarrow \max{\delta, | u - V(s)|}$
 	\newline
 	Until $\delta < \theta$ (small positive number)
 	
