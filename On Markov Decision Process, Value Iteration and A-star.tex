@@ -205,7 +205,8 @@
 
 	The above process is repeated for all states. After having calculated all values we repeat again until convergence which is guaranteed by Value iteration algorithm.
 	\subsection{Pseudo code}
-	Below we present the pseudo code algorigthm of Value Iteration.
+	Below we present the pseudo code of Value Iteration algorithm.
+	\newline
 	\newline
 	Initialize array V with zeros ( V(s) = 0 )
 	\newline
@@ -266,7 +267,7 @@ Figure 2 shows the number of iterations required from the algorithm to converge 
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=80mm]{gammas}
-		\caption{Convergence for $\gamma$ 0.2, 0.6, 0.9 }
+		\caption{Convergence for $\gamma$ = 0.2, 0.6, 0.9 }
 	\end{figure}
 	Due to trivial problem we discuss in this article, there is no substantial differentiation in number of iterations among different $\gamma$, though there exists some distinction in behaviour.
 
@@ -275,45 +276,30 @@ Figure 2 shows the number of iterations required from the algorithm to converge 
 	
 	The heuristic function is a way to guide the algorithm about the direction it needs to take, in order to find the goal in fewer steps. Usually, the heuristic function emerges from solving the given problem with relaxations about the constraints. We can use any heuristic function for a certain problem as long as it admissable. Admissible means that the heuristic should never overestimate the actual cost.
 	
-	Having calculated the optimal values $V^{*}$ for the 3x4 grid world, we will use them as heuristic to find the sortest path from position (2,0) to terminal state with higher reward (0,3). The output of the algorithm is:
-	[(2, 0), (1, 0), (0, 0), (0, 1), (0, 2), (0, 3)], which is the shortest path for this pair of start, end nodes.
+	Having calculated the optimal values $V^{*}$ for the 3x4 grid world, we will use them as heuristic to find the sortest path from position (2,0) to terminal state with higher reward (0,3). The output of the algorithm is shown in table below. We notice for $\gamma=0.2$ path could not be find.
 	
+		\begin{center}
+		\begin{tabular}{ l l l l l l l }
+			$\gamma=0.9$ & (2,0)  & (1,0) & (0,0)  & (0,1) & (0,2) & (0,3) \\ 
+			$\gamma=0.6$  & (2,0)  & (1,0) & (0,0)  & (0,1) & (0,2) & (0,3) \\ 
+			$\gamma=0.2$  & (2,0)  & - & -  & - & - & - 
+		\end{tabular}
+
+	\end{center}
+
 	In the last section, we present $A^{*}$ pseudocode.
 	
 	\subsection{Pseudo code}
-	openSet := {start}
+	Below we present the pseudo code of $A^{*}$ .
 	\newline
-	cameFrom := an empty map
 	\newline
-	gScore := map with default value of Infinity
+	$openlist \leftarrow {0}$
 	\newline
-	gScore[start] := 0
+	$closelist \leftarrow {0}$
 	\newline
-	fScore := map with default value of Infinity
+	$openlist \leftarrow StartNode$
 	\newline
-	fScore[start] := h(start)
-	\newline
-	 while openSet is not empty
-	\newline
-	current := the node in openSet having the lowest fScore[] value
-		\newline
-	if current = goal
-		\newline
-	return reconstructPath(cameFrom, current)
-		\newline
-	openSet.Remove(current)
-		\newline
-	for each neighbor of current
-	\newline
-	tentativeGScore := gScore[current] + d(current, neighbor)
-		\newline
-	if tentativeGScore < gScore[neighbor]
-		\newline
-
-	cameFrom[neighbor] := current
-
-
-	return failure
+	While 
 	
 	\section{Conclusion}
 	In this article we briefly presented Markov Decision Process problems and the challenge to find the optimal policy for each state an agent could be. We used Value Iteration algorithm to calculate the value of each state and explored the impact of discount factor $\gamma$. Lastly, we implemented A* path finding algorithm and used the converged state-values as heuristic.
@@ -323,20 +309,22 @@ Figure 2 shows the number of iterations required from the algorithm to converge 
 	
 	
 	\begin{thebibliography}{9}
-		\bibitem{latexcompanion} 
-		Michel Goossens, Frank Mittelbach, and Alexander Samarin. 
-		\textit{The \LaTeX\ Companion}. 
-		Addison-Wesley, Reading, Massachusetts, 1993.
+		\bibitem{russell} 
+		Stuart Russell and Peter Norvig. 
+		\textit{Artificial Intelligence: A Modern Approach}. 
+		Prentice Hall, Fourth Edition 2020.
 		
-		\bibitem{einstein} 
-		Albert Einstein. 
-		\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) 
-		[\textit{On the electrodynamics of moving bodies}]. 
-		Annalen der Physik, 322(10):891–921, 1905.
+		\bibitem{russell} 
+		Casey C.Bennett and Kris Hauser. 
+		\textit{Artificial intelligence framework for simulating clinical decision-making: A Markov decision process approach}. 
+		Elsevier, January 2013.
 		
-		\bibitem{knuthwebsite} 
-		Knuth: Computers and Typesetting,
-		\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
+		\bibitem{Hasselt} 
+		van Hasselt, H., Guez, A., and Silver, D. (2016). 
+		\textit{Deep Reinforcement Learning with Double Q-Learning}. 
+		Proceedings of the AAAI Conference on Artificial Intelligence, 30(1). 
+		
+
 	\end{thebibliography}
 	
 
