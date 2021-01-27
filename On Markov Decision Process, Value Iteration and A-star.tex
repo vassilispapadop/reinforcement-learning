@@ -22,7 +22,7 @@
 	\maketitle
 	
 	\textbf{Abstract}
-	Reinforcement learning is the science of learning to make decisions. In order to make such decisions, the agent has to learn either a policy,	a value function and/or a model. The importance of decision making comes to the affect it has on future expected rewards, agent states and perharps in enviroment states. In this article, we will discuss the mathematical formulation of agent-enviroment interaction, known as Markov Decision Process (MDP). We will present the Value iteration algorithm which helps us to calculate the value of each possible state the agent can live. In the last part, we will use A* algorithm to find the best possible path in a small 3x4 grid world using value-iteration output as a heuristic function.
+	Reinforcement learning is the science of learning to make decisions. In order to make such decisions, the agent has to learn either a policy,	a value function and/or a model. The importance of decision making comes to the affect it has on future expected rewards, agent states and perharps in environment states. In this article, we will discuss the mathematical formulation of agent-enviroment interaction, known as Markov Decision Process (MDP). We will present the Value iteration algorithm which helps us to calculate the value of each possible state the agent can live. In the last part, we will use A* algorithm to find the best possible path in a small 3x4 grid world using value-iteration output as a heuristic function.
 	
 	
 	\section{Environment}
@@ -45,7 +45,7 @@
 	
 	\section{Markov Decision Process (MDP)}
 	
-	Markov Decision process can formally describe the interaction between an agent and the environment. MDPs rely on so-called Markov property, which states the the future is independent of the past given the current/present state. Intuitevely, markov property tells us that all information gathered from previous states can be consider as irrelevant as the information of the current state is sufficient. We can formulate this definition as:
+	Markov Decision process can formally describe the interaction between an agent and the environment. MDPs rely on so-called Markov property, which states that the future is independent of the past given the current/present state. Intuitevely, markov property tells us that all information gathered from previous states can be consider as irrelevant as the information of the current state is sufficient. We can formulate this definition as:
 	
 	A state $s$ has a Markov property if for all states $\forall{s'} \in S$ and all rewards $r \in R$
 	
@@ -69,7 +69,7 @@
 		\item $\gamma \in [0,1] $ is the discount factor
 	\end{enumerate}
 
-	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. However, in real world applications such a model is unknown, the agent does not know state transition probabilities or rewards and it could only discover them by taking an action on certain state and receives the reward of the landed state. This approach is called Q-Learning and it a model-free learning. The discount factor $\gamma$ trades off the later rewards to earlier ones. Expected discounted reward is defined as:
+	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. However, in real world applications such a model is unknown, the agent does not know state transition probabilities or rewards and it could only discover them by taking an action on certain state and receive the reward of the landed state. This approach is called Q-Learning and it a model-free learning. The discount factor $\gamma$ trades off the later rewards to earlier ones. Expected discounted reward is defined as:
 	
 	\begin{equation}
 		\mathbb{E}[R | s,a] = \sum_{r}r \sum_{s'}p(r, s' | s, a)
@@ -95,7 +95,7 @@
 		V(s) \leftarrow \max_{a} { ( R(s,a) + \gamma \sum_{s'}T(s,a,s')V(s') )}
 	\end{equation}
 	
-	Intuitively, the value of V(s) is the best action that maximizes the expected reward. In order to compute the value state of cell(3,3) we need to calculate all the possible future rewards for every possible action $A = \{ a_{1}, a{2}, ..., a_{m} \}$. In this example we set discount factor $\gamma = 0.9$ and living reward $R=0$. Breaking down equation (5) we write:
+	Intuitively, the value of V(s) is the best action that maximizes the expected reward. In order to compute the value state of cell(3,3) we need to calculate all the  future rewards for every possible action $A = \{ a_{1}, a{2}, ..., a_{m} \}$ and then choose the best action. In this example we set discount factor $\gamma = 0.9$ and living reward $R=0$. Breaking down equation (5) we write:
 	
 	
 	\begin{enumerate}
@@ -227,7 +227,7 @@
 	
 	\subsection{Discount factor}
 	 One  important parameter for solving  MDPs is the discount factor $\gamma$. Discount factors are important in MDPs, in a sense they determine how the reward is counted in future states.
-	 In this section, we will evaluate the impact discount factor $\gamma$ has, to optimum value $V_{s}^{*}$ of each state s and ultimately to optimal policy $\pi^{*} $ after the convergece of value iteration algorithm. Particularly, given 3x4 world we defined in section I, we will explore the results for 3 different $\gamma$ values, 0.9, 0.6, 0.2 after 100 iterations.
+	 In this section, we will evaluate the impact discount factor $\gamma$ has, to optimum value $V_{s}^{*}$ of each state s and ultimately to optimal policy $\pi^{*} $ after the convergece of value iteration algorithm. Particularly, given 3x4 world we defined in section I, we will explore the results for 3 different $\gamma$ values, 0.9, 0.6, 0.2 after 100 iterations. Results presented in the table below.
 	 
 	 	\begin{center}
 	 	\begin{tabular}{ c c c c}
@@ -262,7 +262,7 @@
 	\end{tabular}
 \end{center}
 
-Figure 2 shows the number of iterations required from the algorithm to converge for different $\gamma$ values. 
+Figure 2 shows the number of iterations required for the algorithm to converge for different $\gamma$ values. 
 
 	\begin{figure}[ht!]
 		\centering
@@ -276,13 +276,13 @@ Figure 2 shows the number of iterations required from the algorithm to converge 
 	
 	The heuristic function is a way to guide the algorithm about the direction it needs to take, in order to find the goal in fewer steps. Usually, the heuristic function emerges from solving the given problem with relaxations about the constraints. We can use any heuristic function for a certain problem as long as it admissable. Admissible means that the heuristic should never overestimate the actual cost.
 	
-	Having calculated the optimal values $V^{*}$ for the 3x4 grid world, we will use them as heuristic to find the sortest path from position (2,0) to terminal state with higher reward (0,3). The output of the algorithm is shown in table below. We notice for $\gamma=0.2$ path could not be find.
+	Having calculated the optimal values $V^{*}$ for the 3x4 grid world, we will use them as heuristic to find the sortest path from position (1,1) to terminal state with higher reward (3,4). The output of the algorithm is shown in table below. We notice for $\gamma=0.2$ path could not be found.
 	
 		\begin{center}
 		\begin{tabular}{ l l l l l l l }
-			$\gamma=0.9$ & (2,0)  & (1,0) & (0,0)  & (0,1) & (0,2) & (0,3) \\ 
-			$\gamma=0.6$  & (2,0)  & (1,0) & (0,0)  & (0,1) & (0,2) & (0,3) \\ 
-			$\gamma=0.2$  & (2,0)  & - & -  & - & - & - 
+			$\gamma=0.9$ & (1,1)  & (2,1) & (3,1)  & (3,2) & (3,3) & (3,4) \\ 
+			$\gamma=0.6$  & (1,1)  & (2,1) & (3,1)  & (3,2) & (3,3) & (3,4) \\ 
+			$\gamma=0.2$  & (1,1)  & - & -  & - & - & - 
 		\end{tabular}
 
 	\end{center}
