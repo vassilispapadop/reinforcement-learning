@@ -262,27 +262,56 @@
 	\end{tabular}
 \end{center}
 
-Figure 2 shows the number of iterations required for the algorithm to converge for different $\gamma$ values. 
+Figure 2 shows the number of iterations required
 
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[width=80mm]{gammas}
 		\caption{Convergence for $\gamma$ = 0.2, 0.6, 0.9 }
 	\end{figure}
-	Due to trivial problem we discuss in this article, there is no substantial differentiation in number of iterations among different $\gamma$, though there exists some distinction in behaviour.
+
+	
+	Due to trivial problem being discussed in this article, there is no substantial differentiation in number of iterations among different $\gamma$, though there exists some distinction in behaviour which would be magnified in larger problems.
 
 	\section{A* Algorithm}
 	A* is a graph traversal and path search algorithm. It differs from Dijkstra as it uses the best first search while taking into account the current cost g and an heuristic function h. It gives priority to nodes that are supposed to be better than others according to the value of function f(s) = g(s) + h(s) where h(s) is a heuristic function. For h(s) = 0, A* is similar to Dijkstra.
 	
-	The heuristic function is a way to guide the algorithm about the direction it needs to take, in order to find the goal in fewer steps. Usually, the heuristic function emerges from solving the given problem with relaxations about the constraints. We can use any heuristic function for a certain problem as long as it admissable. Admissible means that the heuristic should never overestimate the actual cost.
+	The heuristic function is a way to guide the algorithm about the direction it needs to take, in order to find the goal in fewer steps. Usually, the heuristic function emerges from solving the given problem with relaxations about the constraints. We can use any heuristic function for a certain problem as long as it \textbf{consistent} and \textbf{admissible}. Admissible means that the heuristic should never overestimate the actual cost(21), while consistent indicates that the heuristic of predecessor node should be less and/or equal to the sum of the cost and heuristic of successor node (22).
+	
+	\begin{equation}
+		\begin{split}
+			\forall n, h(n) \leq g^{*}(n)
+		\end{split}
+	\end{equation}
+	
+	
+	\begin{equation}
+		\begin{split}
+			h(s)  \leq g(s,p) + h(p)
+		\end{split}
+	\end{equation}
+	
+	where:
+	\newline
+	\begin{itemize}	
+		\item h is the consistent heuristic function
+		\item p is any node in the graph
+		\item s is any descendant of p
+		\item g(s,p) is the cost from p to s
+	\end{itemize}
+	
 	
 	Having calculated the optimal values $V^{*}$ for the 3x4 grid world, we will use them as heuristic to find the sortest path from position (1,1) to terminal state with higher reward (3,4). The output of the algorithm is shown in table below. We notice for $\gamma=0.2$ path could not be found.
 	
 		\begin{center}
 		\begin{tabular}{ l l l l l l l }
-			$\gamma=0.9$ & (1,1)  & (2,1) & (3,1)  & (3,2) & (3,3) & (3,4) \\ 
-			$\gamma=0.6$  & (1,1)  & (2,1) & (3,1)  & (3,2) & (3,3) & (3,4) \\ 
-			$\gamma=0.2$  & (1,1)  & - & -  & - & - & - 
+ 		\hline
+		\multicolumn{7}{|c|}{  Path taken } \\
+		\hline	
+
+			\multicolumn{1}{|l|} {$\gamma=0.9$} & (1,1)  & (2,1) & (3,1)  & (3,2) & (3,3) & (3,4) \\ 
+			\multicolumn{1}{|l|} {$\gamma=0.6$}  & (1,1)  & (2,1) & (3,1)  & (3,2) & (3,3) & (3,4) \\ 
+			\multicolumn{1}{|l|} {$\gamma=0.2$}  & (1,1)  & - & -  & - & - & - 
 		\end{tabular}
 
 	\end{center}
