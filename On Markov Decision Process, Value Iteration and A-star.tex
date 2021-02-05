@@ -1,5 +1,5 @@
 \documentclass[10pt,a4paper,twocolumn]{article}
-\newcommand\tab[1][0.25cm]{\hspace*{#1}}
+\newcommand\tab[1][0.5cm]{\hspace*{#1}}
 \title{%
 		On Markov Decision Process, Value Iteration and A* \\
 	\large Course assignment: Fundamental knowledge on Artificial Intelligence \\
@@ -330,8 +330,28 @@ Figure 2 shows the number of iterations required
 	\newline
 	$openlist \leftarrow StartNode$
 	\newline
-	While 
-	
+	While openList not empty:
+	\newline \tab m = Node on top of openList with least f
+	\newline \tab if m = goalNode:
+	\newline \tab \tab return
+	\newline \tab openList.pop(m)
+	\newline \tab closeList.push(m)
+	\newline \tab foreach child in children(m):
+	\newline \tab \tab if child in closeList:
+	\newline \tab \tab \tab continue
+	\newline \tab \tab cost = g(m) + distance(m, child)	
+	\newline \tab \tab if child in openList and cost < g(child):
+	\newline \tab \tab \tab openList.pop(child) //new path is better
+	\newline \tab \tab if child in closeList and cost < g(child):
+	\newline \tab \tab \tab closeList.pop(child)
+	\newline \tab \tab if child not in (closeList and openList):
+	\newline \tab \tab \tab openList.push(child)
+	\newline \tab \tab \tab g(child) = cost
+	\newline \tab \tab \tab //in our case state values
+	\newline \tab \tab \tab h(child) = heuristic-function(child, goal) 
+	\newline \tab \tab \tab f(child) = g(child) + h(child)
+	\newline return False
+		
 	\section{Conclusion}
 	In this article we briefly presented Markov Decision Process problems and the challenge to find the optimal policy for each state an agent could be. We used Value Iteration algorithm to calculate the value of each state and explored the impact of discount factor $\gamma$. Lastly, we implemented A* path finding algorithm and used the converged state-values as heuristic.
 	We also provided Python implemantions of the two considered algorithms. $\text{valueiteration.py and astar.py}$.
