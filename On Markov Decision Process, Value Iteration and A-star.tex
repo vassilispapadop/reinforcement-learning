@@ -24,14 +24,14 @@
 	\maketitle
 	
 	\textbf{Abstract}
-	Reinforcement learning is the science of learning to make decisions. In order to make such decisions, the agent has to learn either a policy,	a value function and/or a model. The importance of decision making comes to the affect it has on future expected rewards, agent states and perharps in environment states. In this article, we will discuss the mathematical formulation of agent-enviroment interaction, known as Markov Decision Process (MDP). We will present the Value iteration algorithm which helps us to calculate the value of each possible state the agent can live. In the last part, we will use A* algorithm to find the best possible path in a small 3x4 grid world using value-iteration output as a heuristic function.
+	Reinforcement learning is the science of learning to make decisions. In order to make such decisions, the agent has to learn either a policy,	a value function and/or a model. The importance of decision making comes to the affect it has on future expected rewards, agent states and perharps in environment states. In this article, we will discuss the mathematical formulation of agent-enviroment interaction, known as Markov Decision Process (MDP). We will present the Value iteration algorithm which helps us to calculate the value/utility of each possible state the agent can live. In the last part, we will use A* algorithm to find the best possible path in a small 3x4 grid world using value-iteration output as a heuristic function.
 	
 	
 	\section{Environment}
 	
 	Assume a fully observable, non-deterministic 3x4 grid world. In such stochastic environment, 
 	each action an agent performs has a certain probability P(a) to succeed(to go as planned) and 1-P(a) to move to a different direction. 
-	For example: if the agent wants to go \textit{up}, there is a 0.8 probability to actually move \textit{up} and 0.2 probability to either move \textit{left} or \textit{right}. If the agent wants to move \textit{right} it will succeed with 0.8 probability and with 0.2 it will either move \textit{left} or it will stay and the same state if it hits the wall. Thus, the transition model can be summarized as a probability P(a) to move to desire direction and 1-P(a) to land to state which is perpendicular of the itentended action. Figure (1) depicts 3x4 grid world and the transition model.
+	For example: if the agent wants to go \textit{up}, there is a 0.8 probability to actually move \textit{up} and 0.2 probability to either move \textit{left} or \textit{right}. If the agent wants to move \textit{right} it will succeed with 0.8 probability and with 0.2 it will either move \textit{left} or it will stay and the same state if it hits the wall. Thus, the transition model can be summarized as a probability P(a) to move to the desired direction and 1-P(a) to land to state which is perpendicular of the itentended action. Figure (1) depicts 3x4 grid world and the transition model.
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=80mm]{grid_world}
@@ -47,7 +47,7 @@
 	
 	\section{Markov Decision Process (MDP)}
 	
-	Markov Decision process can formally describe the interaction between an agent and the environment. MDPs rely on so-called Markov property, which states that the future is independent of the past given the current/present state. Intuitevely, markov property tells us that all information gathered from previous states can be consider as irrelevant as the information of the current state is sufficient. We can formulate this definition as:
+	Markov Decision process can formally describe the interaction between an agent and the environment. MDPs rely on so-called Markov property, which states that the future is independent of the past given the current/present state. Intuitively, markov property tells us that all information gathered from previous states can be consider as irrelevant as the new information of the current state is sufficient. We can formulate this definition as:
 	
 	A state $s$ has a Markov property if for all states $\forall{s'} \in S$ and all rewards $r \in R$
 	
@@ -71,7 +71,7 @@
 		\item $\gamma \in [0,1] $ is the discount factor
 	\end{enumerate}
 
-	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. However, in real world applications such a model is unknown, the agent does not know state transition probabilities or rewards and it could only discover them by taking an action on certain state and receive the reward of the landed state. This approach is called Q-Learning and it a model-free learning. The discount factor $\gamma$ trades off the later rewards to earlier ones. Expected discounted reward is defined as:
+	In its general form, the agent operates in a stochastic environment thus we model the non-determistic process with a transition model such as $T(s,a,s')$. However, in real world applications such a model is unknown, the agent is unaware of state transition probabilities or rewards and it could only discover them by taking an action on certain state and receive the reward of the landed state. This approach is called Q-Learning and it a model-free learning. The discount factor $\gamma$ trades off the later rewards to earlier ones. Expected discounted reward is defined as:
 	
 	\begin{equation}
 		\mathbb{E}[R | s,a] = \sum_{r}r \sum_{s'}p(r, s' | s, a)
@@ -235,10 +235,10 @@
 	 	\begin{tabular}{ c c c c}
 	 		\hline
 	 		\multicolumn{4}{|c|}{  \text{$\gamma = 0.2$} } \\
-	 		\hline
-	 		-0.01  & 0.02  & 0.16 & 1.00 \\ 
-	 		-0.01  & 0.00  & 0.0  & -1.00 \\  
-	 		-0.01 & -0.01 &  -0.01 & -0.01
+	 		\hline 		
+	 		-0.045 & -0.021 & 0.122 & 1.000 \\
+	 		-0.049 & 0.000 & -0.041 & -1.000 \\
+	 		-0.050 & -0.050 & -0.049 & -0.050 
 	 	\end{tabular}
 	 \end{center}
 	
@@ -247,9 +247,9 @@
 						 \hline
 			\multicolumn{4}{|c|}{  \text{$\gamma = 0.6$} } \\
 			\hline
-			0.11 & 0.25 & 0.52 &1.00 \\ 
-			0.03 & 0.00 & 0.18 & -1.00  \\  
-			-0.01 &  0.0 & 0.06 & -0.04    
+			0.066 & 0.215 & 0.477 &1.000 \\
+			-0.009 & 0.000 & 0.137 & -1.000 \\
+			-0.050 & -0.035 & 0.019 & -0.085
 		\end{tabular}
 	\end{center}
 
@@ -258,9 +258,9 @@
 		\hline
 		\multicolumn{4}{|c|}{  \text{$\gamma = 0.9$} } \\
 		\hline
-		0.55  & 0.69  & 0.84 & 1.00 \\ 
-		0.44  & 0.00  & 0.53  & -1.00 \\  
-		0.34 &  0.29 & 0.38 & 0.17    
+		0.509 & 0.650 & 0.795 &  1.000 \\
+		0.399 & 0.000 & 0.486 & -1.000 \\
+		0.296 & 0.254 & 0.345 & 0.130
 	\end{tabular}
 \end{center}
 

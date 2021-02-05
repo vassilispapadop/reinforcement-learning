@@ -6,15 +6,12 @@ import matplotlib.pyplot as plt
 
 class Grid: # Environment
   def __init__(self, width, height, start):
-    # i is vertical axis, j is horizontal
     self.width = width
     self.height = height
     self.i = start[0]
     self.j = start[1]
 
   def set(self, rewards, actions, obey_prob):
-    # rewards should be a dict of: (i, j): r (row, col): reward
-    # actions should be a dict of: (i, j): A (row, col): list of possible actions
     self.rewards = rewards
     self.actions = actions
     self.obey_prob = obey_prob
@@ -91,30 +88,11 @@ class Grid: # Environment
       probs.append((disobey_prob / 2, reward, state))
     return probs
 
-  def game_over(self):
-    # returns true if game is over, else false
-    # true if we are in a state where no actions are possible
-    return (self.i, self.j) not in self.actions
-
   def all_states(self):
-    # possibly buggy but simple way to get all states
-    # either a position that has possible next actions
-    # or a position that yields a reward
     return set(self.actions.keys()) | set(self.rewards.keys())
 
 
 def standard_grid(obey_prob=1.0, step_cost=None):
-  # define a grid that describes the reward for arriving at each state
-  # and possible actions at each state
-  # the grid looks like this
-  # x means you can't go there
-  # s means start position
-  # number means reward at that state
-  # .  .  .  1
-  # .  x  . -1
-  # s  .  .  .
-  # obey_brob (float): the probability of obeying the command
-  # step_cost (float): a penalty applied each step to minimize the number of moves (-0.1)
   g = Grid(3, 4, (2, 0))
   rewards = {(0, 3): 1, (1, 3): -1}
   actions = {
@@ -143,33 +121,27 @@ def standard_grid(obey_prob=1.0, step_cost=None):
     })
   return g
 
-
-
-
 def print_values(V, g):
     for i in range(g.width):
       print("---------------------------")
       for j in range(g.height):
         v = V.get((i,j), 0)
         if v >= 0:
-          print(" %.2f|" % v, end="")
+          print(" %.3f|" % v, end="")
         else:
-          print("%.2f|" % v, end="")
+          print("%.3f|" % v, end="")
       print("")
 
-# def print_policy(P, g):
-#   for i in range(g.width):
-#     print("---------------------------")
-#     for j in range(g.height):
-#       a = P.get((i,j), ' ')
-#       print("  %s  |" % a, end="")
-#     print("")
-
-
+def print_policy(P, g):
+  for i in range(g.width):
+    print("---------------------------")
+    for j in range(g.height):
+      a = P.get((i,j), ' ')
+      print("  %s  |" % a, end="")
+    print("")
 
 
 THETA = 1e-15
-# GAMMA = 0.6
 GAMMAS = [0.2, 0.6, 0.9]
 ALL_POSSIBLE_ACTIONS = ('U', 'D', 'L', 'R')
 
@@ -178,15 +150,17 @@ def best_action_value(grid, V, s, gamma):
   best_a = None
   best_value = float('-inf')
   grid.set_state(s)
+  R = grid.rewards[s]
   # loop through all possible actions to find the best current action
   for a in ALL_POSSIBLE_ACTIONS:
     transititions = grid.get_transition_probs(a)
     expected_v = 0
     expected_r = 0
     for (prob, r, state_prime) in transititions:
-      expected_r += prob * r
+      # expected_r += prob * r
       expected_v += prob * V[state_prime]
-    v = gamma * (expected_r +  expected_v)
+    # v = -0.04 + gamma * (expected_r +  expected_v)
+    v =  R + gamma * expected_v
     if v > best_value:
       best_value = v
       best_a = a
@@ -199,6 +173,9 @@ def calculate_values(grid, gamma):
   states = grid.all_states()
   for s in states:
     V[s] = 0
+  
+  V[(0,3)] = 1
+  V[(1,3)] = -1
   # repeat until convergence
   # V[s] = max[a]{ sum[s',r] { p(s',r|s,a)[r + gamma*V[s']] } }
   iter = 0
@@ -207,6 +184,7 @@ def calculate_values(grid, gamma):
     biggest_change = 0
     change_acc = 0
     for s in grid.non_terminal_states():
+      # print(s)
       old_v = V[s]
       _, new_v = best_action_value(grid, V, s, gamma)
       V[s] = new_v
@@ -220,30 +198,28 @@ def calculate_values(grid, gamma):
     #   break
   return V, change_history
 
-# def initialize_random_policy():
-#   # policy is a lookup table for state -> action
-#   # we'll randomly choose an action and update as we learn
-#   policy = {}
-#   for s in grid.non_terminal_states():
-#     policy[s] = np.random.choice(ALL_POSSIBLE_ACTIONS)
-#   return policy
+def initialize_random_policy():
+  # policy is a lookup table for state -> action
+  # we'll randomly choose an action and update as we learn
+  policy = {}
+  for s in grid.non_terminal_states():
+    policy[s] = np.random.choice(ALL_POSSIBLE_ACTIONS)
+  return policy
 
-# def calculate_greedy_policy(grid, V, gamma):
-#   policy = initialize_random_policy()
-#   # find a policy that leads to optimal value function
-#   for s in policy.keys():
-#     grid.set_state(s)
-#     # loop through all possible actions to find the best current action
-#     best_a, _ = best_action_value(grid, V, s, gamma)
-#     policy[s] = best_a
-#   return policy
+def calculate_greedy_policy(grid, V, gamma):
+  policy = initialize_random_policy()
+  # find a policy that leads to optimal value function
+  for s in policy.keys():
+    grid.set_state(s)
+    # loop through all possible actions to find the best current action
+    best_a, _ = best_action_value(grid, V, s, gamma)
+    policy[s] = best_a
+  return policy
 
 
 if __name__ == '__main__':
 
   grid = standard_grid(obey_prob=0.8, step_cost=-0.04)
-
-  # print rewards
   print("rewards:")
   print_values(grid.rewards, grid)
   convergence_plots = {}
