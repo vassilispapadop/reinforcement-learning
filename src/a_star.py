@@ -81,9 +81,9 @@ def astar(grid, start, end, heuristic):
         for child in children:
 
             # Child is on the closed list
-            for closed_child in closed_list:
-                if child == closed_child:
-                    continue
+            # for closed_child in closed_list:
+            #     if child == closed_child:
+            #         continue
 
             # Create the f, g, and h values
             child.g = current_node.g + 1
@@ -93,9 +93,9 @@ def astar(grid, start, end, heuristic):
             child.f = child.g + child.h
 
             # Child is already in the open list
-            for open_node in open_list:
-                if child == open_node and child.g > open_node.g:
-                    continue
+            # for open_node in open_list:
+            #     if child == open_node and child.g > open_node.g:
+            #         continue
 
             # Add the child to the open list
             open_list.append(child)
@@ -122,7 +122,7 @@ def main():
     start = (2, 0)
     end = (0, 3)
 
-    path = astar(grid, start, end, values2)
+    path = astar(grid, start, end, values9)
     print(path)
 
 
