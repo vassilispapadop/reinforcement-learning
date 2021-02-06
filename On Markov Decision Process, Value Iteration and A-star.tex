@@ -362,9 +362,11 @@ Figure 2 shows the number of iterations required
 		
 		
 	\section{Technical Details}	
-	Value iteration implementatio can be found here:
+	First, we define a grid with certain \textit{width} and \textit{height}, in our case 3X4. For terminal states we set the desired rewards and store the respected indices. We use the \textit{array} function from \textit{numpy}.  The function \textit{non-deterministic-move} returns the direction the agent will actual take based on intended action and \textit{obey-prob} value. We use \textit{random} function from \textit{numpy} package. \textit{obey-prob} can be thought as noise. \textit{calculate-state-values} function initiates value iteration process. After setting all states to zero, we iterate to all non-terminal-states of the grid. For every non-terminal-state and for all possible actions we calculate the pair {action, reward}  and return the action we higher expected utility and set to the considered state-index. We repeat the above process for either certain number of iterations or until the change in all state values becomes smaller than a certain threshold $\theta$. The complete algorithm is repeated for different $\gamma$ values. We also use \textit{pandas} and \textit{matplotlib} packages to plot the rate of change of the values during the process.
+
+	Similarily, for ${A^*}$ we construct a grid and start the algorithm by passing \textit{grid}, \textit{start, end} nodes and \textit{heuristic} arguments to \textit{astar} method. As presented previously, astar repeats while \textit{openList} contains a node. We find the node with higher \textit{f} and for all possible moves we keep track of children nodes. For all children nodes, we calculate $f(n) = g(n) + h(n)$ and append them open list. Value iteration and  $A^{*}$ implementations can be found here:
 	\href{https://github.com/vassilispapadop/reinforcement-learning/blob/master/src/value_iteration.py}{Value-Iteration}
-	and $A^{*}$: \href{https://github.com/vassilispapadop/reinforcement-learning/blob/master/src/a_star.py}{A-Starl}.
+	and \href{https://github.com/vassilispapadop/reinforcement-learning/blob/master/src/a_star.py}{A-Star}.
 	
 	\section{Conclusion}
 	In this article we briefly presented Markov Decision Process problems and the challenge to find the optimal policy for each state an agent could be. We used Value Iteration algorithm to calculate the value of each state and explored the impact of discount factor $\gamma$. Lastly, we implemented A* path finding algorithm and used the converged state-values as heuristic.

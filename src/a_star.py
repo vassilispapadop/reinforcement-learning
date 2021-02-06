@@ -14,8 +14,8 @@ class Node():
         return self.position == other.position
 
 
-def astar(maze, start, end, heuristic):
-    """Returns a list of tuples as a path from the given start to the given end in the given maze"""
+def astar(grid, start, end, heuristic):
+    """Returns a list of tuples as a path from the given start to the given end in the given grid"""
 
     # Create start and end node
     start_node = Node(None, start)
@@ -64,11 +64,11 @@ def astar(maze, start, end, heuristic):
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
 
             # Make sure within range
-            if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) -1) or node_position[1] < 0:
+            if node_position[0] > (len(grid) - 1) or node_position[0] < 0 or node_position[1] > (len(grid[len(grid)-1]) -1) or node_position[1] < 0:
                 continue
 
             # Make sure walkable terrain
-            if maze[node_position[0]][node_position[1]] != 0:
+            if grid[node_position[0]][node_position[1]] != 0:
                 continue
 
             # Create new node
@@ -103,7 +103,7 @@ def astar(maze, start, end, heuristic):
 
 def main():
     # 1-indicates wall
-    maze = [[0,0,0,0],
+    grid = [[0,0,0,0],
             [0,1,0,0],
             [0,0,0,0]]
 
@@ -122,7 +122,7 @@ def main():
     start = (2, 0)
     end = (0, 3)
 
-    path = astar(maze, start, end, values2)
+    path = astar(grid, start, end, values2)
     print(path)
 
 

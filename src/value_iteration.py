@@ -29,7 +29,7 @@ class Grid: # Environment
   def is_terminal(self, s):
     return s not in self.actions
 
-  def stochastic_move(self, action):
+  def non_deterministic_move(self, action):
     p = np.random.random()
     if p <= self.obey_prob:
       return action
@@ -39,7 +39,7 @@ class Grid: # Environment
       return np.random.choice(['U', 'D'])
 
   def move(self, action):
-    actual_action = self.stochastic_move(action)
+    actual_action = self.deterministic(action)
     if actual_action in self.actions[(self.i, self.j)]:
       if actual_action == 'U':
         self.i -= 1
@@ -166,7 +166,7 @@ def best_action_value(grid, V, s, gamma):
       best_a = a
   return best_a, best_value
 
-def calculate_values(grid, gamma):
+def calculate_state_values(grid, gamma):
   change_history = []
   # initialize V(s)
   V = {}
@@ -225,7 +225,7 @@ if __name__ == '__main__':
   convergence_plots = {}
   for g in GAMMAS:
     # calculate accurate values for each square
-    V, history = calculate_values(grid, gamma=g)
+    V, history = calculate_state_values(grid, gamma=g)
     convergence_plots[g] = history
 
 
