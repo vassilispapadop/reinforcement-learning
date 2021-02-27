@@ -147,10 +147,11 @@
 		\caption{Q-values evolution per episode \label{overflow}}
 	\end{figure}
 	
-	Next, we show the evolution of each discovered state/value combination for the 2 agents; figures 2 and 3. It is worth mentioning that our agents perceive the notion of a state as the tuple of (action,reward). Thus, Q-values are represented as Q(Action,Reward,Next-action). It seems,
+	Next, we show the evolution of each discovered state/value combination for the 2 agents; figures 2 and 3. It is worth mentioning that our agents perceive the notion of a state as the tuple of (action,reward). Thus, Q-values are represented as Q(Action,Reward,Next-action). It seems the agents learned that 2 particular q-values would lead to maximization of total reward.
 	
+	Finally, we show the cumulative reward per agent during the whole simulation. Total time is defined as the product of \textit{number-of-episodes} times \textit{number-of-games}. At the time unit 2000, exploration stops and the reward increases linearly. This was hinted by figures 1 and 2. 
 	
-	Finally, we show the cumulative reward per agent during the whole simulation. Total time is defined as the product of \textit{number-of-episodes} times \textit{number-of-games}. At the time unit 2000, exploration stops and the reward increases linearly. This was hinted by figures 1 and 2.
+	As in Machine Learning in general, Reinforcement Learning has the so called \textit{hyper-parameters}. In this simulation we set the learning-rate $\alpha$ to 0.1 and the discount-factor $\gamma$ to 0.9 in order to make Q-values to converge. It is obvious the convergence depends also on the number of executed episodes. Lastly, it is possible for the two agents to reach Nash-Equilibrium \textbf{before} Q-values have converged.
 	
 	
 	\begin{figure}[ht!]
@@ -168,7 +169,7 @@
 
 
 	\section{Disclaimer}
-	In order for our implemantion to be as generic as possible, we made the agents to \textit{discover} states. This means that we did not hard-coded the size of Q-table even though it was a trivial calculation. Furthermore, we tried other two approaches which led to similar results. One approach was to model the state space as the number of games(20 in this case) the other one, since it is a stochastic game state space can be thought as a single state[3].	
+	In order for our implemantion to be as generic as possible, we made the agents to \textit{discover} states. This means that we did not hard-coded the size of Q-table even though it was a trivial calculation. Furthermore, we tried other two approaches which led to similar results. One approach was to model the state space as the number of games(20 in this case) while the other one, since it is a stochastic game state space can be thought as a single state[3].	
 
 
 
