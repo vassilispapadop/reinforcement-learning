@@ -5,8 +5,8 @@ from matplotlib import pyplot as plt
 episodes = 150
 runs = 20
 actions = [0, 1] 
-learning_rate = 0.5
-gamma = 0.9
+learning_rate = 0.1
+discount_factor = 0.9
 epsilon = 1
 
 
@@ -28,8 +28,9 @@ class Agent():
         self.avg_reward_episode = []
         self.total_reward_evolution = []
         self.q_action_per_episode = {}
-        self.current_state = (0,0)
-        self.q_table = {(0,0):[0, 0]}
+        self.initial_state = (0,0)
+        self.current_state = self.initial_state
+        self.q_table = {self.initial_state:[0, 0]}
 
 
     def next_action(self, state):
@@ -41,16 +42,16 @@ class Agent():
             action = np.argmax(self.q_table[self.current_state])
         return action
 
-    def updateQ(self, state, action, reward):
+    def updateQ(self, time_step, action, reward):
         
+        # New state discovered
         if (action, reward) not in self.q_table:
             self.q_table[(action, reward)] = [0, 0]
 
         old_value = self.q_table[self.current_state][action]
         next_max = np.max(self.q_table[self.current_state])
-        next_max_index = np.argmax(self.q_table[self.current_state])
 
-        new_value = (1 - learning_rate) * old_value + learning_rate * (reward + gamma * next_max)
+        new_value = (1 - learning_rate) * old_value + learning_rate * (reward + discount_factor * next_max)
         self.q_table[self.current_state][action] = new_value
         self.current_state = (action,reward)
 
@@ -62,7 +63,7 @@ class Agent():
 
     def update_stats(self):
         for key, value in self.q_table.items():
-            if key == (0,0):
+            if key == self.initial_state:
                 continue
             if key not in self.q_action_per_episode:
                 self.q_action_per_episode[key] = {0:[], 1:[]}
@@ -73,11 +74,14 @@ class Agent():
 
     def reset(self):
         ''' resets rewards for next episode and epsilon decrement '''
+        self.current_state = self.initial_state
         self.episode_reward = 0
         self.e_greedy -= 0.01 
         # make sure we do not use negative values
         if self.e_greedy < 0.0: 
             self.e_greedy = 0.0
+
+        print("epsilon agent {} is:{}".format(self.name, self.e_greedy))
 
 if __name__ == "__main__":
 
@@ -93,9 +97,9 @@ if __name__ == "__main__":
             action2 = player2.next_action(run)
             [r1, r2] = reward_grid[action1][action2]
             #stop update q-table after 100th episode, testing phase
-            if episode < 100:
-                player1.updateQ(run, action1, r1)
-                player2.updateQ(run, action2, r2)
+            # if episode < 100:
+            player1.updateQ(run, action1, r1)
+            player2.updateQ(run, action2, r2)
 
             player1.total_reward(r1)
             player2.total_reward(r2)
@@ -161,8 +165,8 @@ if __name__ == "__main__":
         if key == (0,0): 
             continue
         
-        ax1.plot(player1.q_action_per_episode[key][0], label="S:{}, A:A".format(key))
-        ax1.plot(player1.q_action_per_episode[key][1], label="S:{}, A:D".format(key))
+        ax1.plot(player1.q_action_per_episode[key][0], label="st:{}, ac:A".format(key))
+        ax1.plot(player1.q_action_per_episode[key][1], label="st:{}, ac:D".format(key))
 
     ax1.axvline(x=100, color='black', linestyle="--")
     ax1.title.set_text("Agent 0 Q(s,a) per episode") 
@@ -174,8 +178,8 @@ if __name__ == "__main__":
         if key == (0,0): 
             continue
     
-        ax2.plot(player2.q_action_per_episode[key][0], label="S:{}, A:A".format(key))
-        ax2.plot(player2.q_action_per_episode[key][1], label="S:{}, A:D".format(key))
+        ax2.plot(player2.q_action_per_episode[key][0], label="st:{}, ac:A".format(key))
+        ax2.plot(player2.q_action_per_episode[key][1], label="st:{}, ac:D".format(key))
 
     ax2.axvline(x=100, color='black', linestyle="--")
     ax2.title.set_text("Agent 1 Q(s,a) per episode") 
